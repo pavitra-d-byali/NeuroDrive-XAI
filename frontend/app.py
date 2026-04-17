@@ -28,6 +28,20 @@ def load_sample_log():
 
 df = load_sample_log()
 
+# Embedded Video Feed
+st.header("📹 Dashboard Camera Feed")
+try:
+    if os.path.exists("demo/sample_drive.mp4"):
+        st.video("demo/sample_drive.mp4")
+    elif os.path.exists("artifacts/output_demo.mp4"):
+        st.video("artifacts/output_demo.mp4")
+    else:
+        st.info("Visual Feed Offline: Rendering strict structural tensor mapping.")
+except Exception:
+    pass
+
+st.divider()
+
 # Frame Inspector
 st.header("🔍 Frame-by-Frame Inspection Mode")
 frame_idx = st.slider("Select Timeline Frame", 0, len(df)-1, 50)

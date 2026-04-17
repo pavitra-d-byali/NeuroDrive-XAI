@@ -1,0 +1,1604 @@
+[
+    {
+        "frame": 0,
+        "objects_detected": 0,
+        "decision": "Proceed",
+        "latency": 1.42
+    },
+    {
+        "frame": 1,
+        "objects_detected": 22,
+        "decision": "Proceed",
+        "latency": 1.337
+    },
+    {
+        "frame": 2,
+        "objects_detected": 23,
+        "decision": "Proceed",
+        "latency": 1.133
+    },
+    {
+        "frame": 3,
+        "objects_detected": 24,
+        "decision": "Proceed",
+        "latency": 1.087
+    },
+    {
+        "frame": 4,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 0.991
+    },
+    {
+        "frame": 5,
+        "objects_detected": 21,
+        "decision": "Proceed",
+        "latency": 1.041
+    },
+    {
+        "frame": 6,
+        "objects_detected": 21,
+        "decision": "Proceed",
+        "latency": 1.486
+    },
+    {
+        "frame": 7,
+        "objects_detected": 21,
+        "decision": "Proceed",
+        "latency": 1.211
+    },
+    {
+        "frame": 8,
+        "objects_detected": 23,
+        "decision": "Proceed",
+        "latency": 1.237
+    },
+    {
+        "frame": 9,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.347
+    },
+    {
+        "frame": 10,
+        "objects_detected": 24,
+        "decision": "Proceed",
+        "latency": 1.204
+    },
+    {
+        "frame": 11,
+        "objects_detected": 21,
+        "decision": "Proceed",
+        "latency": 1.269
+    },
+    {
+        "frame": 12,
+        "objects_detected": 19,
+        "decision": "Proceed",
+        "latency": 1.269
+    },
+    {
+        "frame": 13,
+        "objects_detected": 17,
+        "decision": "Proceed",
+        "latency": 1.434
+    },
+    {
+        "frame": 14,
+        "objects_detected": 17,
+        "decision": "Proceed",
+        "latency": 1.346
+    },
+    {
+        "frame": 15,
+        "objects_detected": 16,
+        "decision": "Proceed",
+        "latency": 1.296
+    },
+    {
+        "frame": 16,
+        "objects_detected": 17,
+        "decision": "Proceed",
+        "latency": 0.883
+    },
+    {
+        "frame": 17,
+        "objects_detected": 17,
+        "decision": "Proceed",
+        "latency": 0.768
+    },
+    {
+        "frame": 18,
+        "objects_detected": 15,
+        "decision": "Proceed",
+        "latency": 1.188
+    },
+    {
+        "frame": 19,
+        "objects_detected": 15,
+        "decision": "Proceed",
+        "latency": 1.219
+    },
+    {
+        "frame": 20,
+        "objects_detected": 16,
+        "decision": "Proceed",
+        "latency": 1.383
+    },
+    {
+        "frame": 21,
+        "objects_detected": 18,
+        "decision": "Proceed",
+        "latency": 1.483
+    },
+    {
+        "frame": 22,
+        "objects_detected": 20,
+        "decision": "Proceed",
+        "latency": 1.653
+    },
+    {
+        "frame": 23,
+        "objects_detected": 20,
+        "decision": "Proceed",
+        "latency": 1.453
+    },
+    {
+        "frame": 24,
+        "objects_detected": 20,
+        "decision": "Proceed",
+        "latency": 1.096
+    },
+    {
+        "frame": 25,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.404
+    },
+    {
+        "frame": 26,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.193
+    },
+    {
+        "frame": 27,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.424
+    },
+    {
+        "frame": 28,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.393
+    },
+    {
+        "frame": 29,
+        "objects_detected": 24,
+        "decision": "Proceed",
+        "latency": 1.377
+    },
+    {
+        "frame": 30,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.29
+    },
+    {
+        "frame": 31,
+        "objects_detected": 22,
+        "decision": "Proceed",
+        "latency": 1.405
+    },
+    {
+        "frame": 32,
+        "objects_detected": 22,
+        "decision": "Proceed",
+        "latency": 1.504
+    },
+    {
+        "frame": 33,
+        "objects_detected": 21,
+        "decision": "Proceed",
+        "latency": 1.426
+    },
+    {
+        "frame": 34,
+        "objects_detected": 19,
+        "decision": "Proceed",
+        "latency": 1.115
+    },
+    {
+        "frame": 35,
+        "objects_detected": 22,
+        "decision": "Proceed",
+        "latency": 1.648
+    },
+    {
+        "frame": 36,
+        "objects_detected": 22,
+        "decision": "Proceed",
+        "latency": 1.348
+    },
+    {
+        "frame": 37,
+        "objects_detected": 22,
+        "decision": "Proceed",
+        "latency": 1.119
+    },
+    {
+        "frame": 38,
+        "objects_detected": 22,
+        "decision": "Proceed",
+        "latency": 1.458
+    },
+    {
+        "frame": 39,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.282
+    },
+    {
+        "frame": 40,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.422
+    },
+    {
+        "frame": 41,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.443
+    },
+    {
+        "frame": 42,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.51
+    },
+    {
+        "frame": 43,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.266
+    },
+    {
+        "frame": 44,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.21
+    },
+    {
+        "frame": 45,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.579
+    },
+    {
+        "frame": 46,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.569
+    },
+    {
+        "frame": 47,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.433
+    },
+    {
+        "frame": 48,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.559
+    },
+    {
+        "frame": 49,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.43
+    },
+    {
+        "frame": 50,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.273
+    },
+    {
+        "frame": 51,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.717
+    },
+    {
+        "frame": 52,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.678
+    },
+    {
+        "frame": 53,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.602
+    },
+    {
+        "frame": 54,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.443
+    },
+    {
+        "frame": 55,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.543
+    },
+    {
+        "frame": 56,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.198
+    },
+    {
+        "frame": 57,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.769
+    },
+    {
+        "frame": 58,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.515
+    },
+    {
+        "frame": 59,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.188
+    },
+    {
+        "frame": 60,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.51
+    },
+    {
+        "frame": 61,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.449
+    },
+    {
+        "frame": 62,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.459
+    },
+    {
+        "frame": 63,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.614
+    },
+    {
+        "frame": 64,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.463
+    },
+    {
+        "frame": 65,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.416
+    },
+    {
+        "frame": 66,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.492
+    },
+    {
+        "frame": 67,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.443
+    },
+    {
+        "frame": 68,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.423
+    },
+    {
+        "frame": 69,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.675
+    },
+    {
+        "frame": 70,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.383
+    },
+    {
+        "frame": 71,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.448
+    },
+    {
+        "frame": 72,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.665
+    },
+    {
+        "frame": 73,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.671
+    },
+    {
+        "frame": 74,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.234
+    },
+    {
+        "frame": 75,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.546
+    },
+    {
+        "frame": 76,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.671
+    },
+    {
+        "frame": 77,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.25
+    },
+    {
+        "frame": 78,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.757
+    },
+    {
+        "frame": 79,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.333
+    },
+    {
+        "frame": 80,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.354
+    },
+    {
+        "frame": 81,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.541
+    },
+    {
+        "frame": 82,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.282
+    },
+    {
+        "frame": 83,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.547
+    },
+    {
+        "frame": 84,
+        "objects_detected": 23,
+        "decision": "Proceed",
+        "latency": 1.513
+    },
+    {
+        "frame": 85,
+        "objects_detected": 24,
+        "decision": "Proceed",
+        "latency": 1.245
+    },
+    {
+        "frame": 86,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.302
+    },
+    {
+        "frame": 87,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.331
+    },
+    {
+        "frame": 88,
+        "objects_detected": 24,
+        "decision": "Proceed",
+        "latency": 1.459
+    },
+    {
+        "frame": 89,
+        "objects_detected": 24,
+        "decision": "Proceed",
+        "latency": 1.405
+    },
+    {
+        "frame": 90,
+        "objects_detected": 24,
+        "decision": "Proceed",
+        "latency": 1.428
+    },
+    {
+        "frame": 91,
+        "objects_detected": 23,
+        "decision": "Proceed",
+        "latency": 0.965
+    },
+    {
+        "frame": 92,
+        "objects_detected": 23,
+        "decision": "Proceed",
+        "latency": 1.397
+    },
+    {
+        "frame": 93,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.519
+    },
+    {
+        "frame": 94,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.584
+    },
+    {
+        "frame": 95,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.752
+    },
+    {
+        "frame": 96,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.422
+    },
+    {
+        "frame": 97,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.717
+    },
+    {
+        "frame": 98,
+        "objects_detected": 22,
+        "decision": "Proceed",
+        "latency": 1.53
+    },
+    {
+        "frame": 99,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.919
+    },
+    {
+        "frame": 100,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.845
+    },
+    {
+        "frame": 101,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.692
+    },
+    {
+        "frame": 102,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.897
+    },
+    {
+        "frame": 103,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.609
+    },
+    {
+        "frame": 104,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.722
+    },
+    {
+        "frame": 105,
+        "objects_detected": 24,
+        "decision": "Proceed",
+        "latency": 1.631
+    },
+    {
+        "frame": 106,
+        "objects_detected": 24,
+        "decision": "Proceed",
+        "latency": 1.599
+    },
+    {
+        "frame": 107,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.759
+    },
+    {
+        "frame": 108,
+        "objects_detected": 24,
+        "decision": "Proceed",
+        "latency": 1.524
+    },
+    {
+        "frame": 109,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.616
+    },
+    {
+        "frame": 110,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.725
+    },
+    {
+        "frame": 111,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.836
+    },
+    {
+        "frame": 112,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.709
+    },
+    {
+        "frame": 113,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.481
+    },
+    {
+        "frame": 114,
+        "objects_detected": 23,
+        "decision": "Proceed",
+        "latency": 1.494
+    },
+    {
+        "frame": 115,
+        "objects_detected": 24,
+        "decision": "Proceed",
+        "latency": 1.608
+    },
+    {
+        "frame": 116,
+        "objects_detected": 24,
+        "decision": "Proceed",
+        "latency": 1.274
+    },
+    {
+        "frame": 117,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.254
+    },
+    {
+        "frame": 118,
+        "objects_detected": 23,
+        "decision": "Proceed",
+        "latency": 1.186
+    },
+    {
+        "frame": 119,
+        "objects_detected": 21,
+        "decision": "Proceed",
+        "latency": 1.365
+    },
+    {
+        "frame": 120,
+        "objects_detected": 20,
+        "decision": "Proceed",
+        "latency": 1.125
+    },
+    {
+        "frame": 121,
+        "objects_detected": 22,
+        "decision": "Proceed",
+        "latency": 1.441
+    },
+    {
+        "frame": 122,
+        "objects_detected": 23,
+        "decision": "Proceed",
+        "latency": 1.471
+    },
+    {
+        "frame": 123,
+        "objects_detected": 24,
+        "decision": "Proceed",
+        "latency": 1.357
+    },
+    {
+        "frame": 124,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.445
+    },
+    {
+        "frame": 125,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.274
+    },
+    {
+        "frame": 126,
+        "objects_detected": 23,
+        "decision": "Proceed",
+        "latency": 1.468
+    },
+    {
+        "frame": 127,
+        "objects_detected": 23,
+        "decision": "Proceed",
+        "latency": 1.389
+    },
+    {
+        "frame": 128,
+        "objects_detected": 22,
+        "decision": "Proceed",
+        "latency": 1.352
+    },
+    {
+        "frame": 129,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.489
+    },
+    {
+        "frame": 130,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.417
+    },
+    {
+        "frame": 131,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.534
+    },
+    {
+        "frame": 132,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.858
+    },
+    {
+        "frame": 133,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.273
+    },
+    {
+        "frame": 134,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.389
+    },
+    {
+        "frame": 135,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.477
+    },
+    {
+        "frame": 136,
+        "objects_detected": 24,
+        "decision": "Proceed",
+        "latency": 1.265
+    },
+    {
+        "frame": 137,
+        "objects_detected": 23,
+        "decision": "Proceed",
+        "latency": 1.586
+    },
+    {
+        "frame": 138,
+        "objects_detected": 26,
+        "decision": "Proceed",
+        "latency": 1.303
+    },
+    {
+        "frame": 139,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.266
+    },
+    {
+        "frame": 140,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.372
+    },
+    {
+        "frame": 141,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.442
+    },
+    {
+        "frame": 142,
+        "objects_detected": 25,
+        "decision": "Proceed",
+        "latency": 1.54
+    },
+    {
+        "frame": 143,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.724
+    },
+    {
+        "frame": 144,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.456
+    },
+    {
+        "frame": 145,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.266
+    },
+    {
+        "frame": 146,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.378
+    },
+    {
+        "frame": 147,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.475
+    },
+    {
+        "frame": 148,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.892
+    },
+    {
+        "frame": 149,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.417
+    },
+    {
+        "frame": 150,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.316
+    },
+    {
+        "frame": 151,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.621
+    },
+    {
+        "frame": 152,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.642
+    },
+    {
+        "frame": 153,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.409
+    },
+    {
+        "frame": 154,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.47
+    },
+    {
+        "frame": 155,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.63
+    },
+    {
+        "frame": 156,
+        "objects_detected": 33,
+        "decision": "Proceed",
+        "latency": 1.552
+    },
+    {
+        "frame": 157,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.542
+    },
+    {
+        "frame": 158,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.009
+    },
+    {
+        "frame": 159,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.678
+    },
+    {
+        "frame": 160,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.629
+    },
+    {
+        "frame": 161,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.896
+    },
+    {
+        "frame": 162,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.607
+    },
+    {
+        "frame": 163,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.558
+    },
+    {
+        "frame": 164,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.481
+    },
+    {
+        "frame": 165,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.475
+    },
+    {
+        "frame": 166,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.57
+    },
+    {
+        "frame": 167,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.511
+    },
+    {
+        "frame": 168,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.533
+    },
+    {
+        "frame": 169,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.553
+    },
+    {
+        "frame": 170,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.415
+    },
+    {
+        "frame": 171,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.546
+    },
+    {
+        "frame": 172,
+        "objects_detected": 27,
+        "decision": "Proceed",
+        "latency": 1.545
+    },
+    {
+        "frame": 173,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.555
+    },
+    {
+        "frame": 174,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.608
+    },
+    {
+        "frame": 175,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.42
+    },
+    {
+        "frame": 176,
+        "objects_detected": 28,
+        "decision": "Proceed",
+        "latency": 1.345
+    },
+    {
+        "frame": 177,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.5
+    },
+    {
+        "frame": 178,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.544
+    },
+    {
+        "frame": 179,
+        "objects_detected": 33,
+        "decision": "Proceed",
+        "latency": 1.583
+    },
+    {
+        "frame": 180,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.497
+    },
+    {
+        "frame": 181,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.435
+    },
+    {
+        "frame": 182,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.587
+    },
+    {
+        "frame": 183,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.743
+    },
+    {
+        "frame": 184,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.571
+    },
+    {
+        "frame": 185,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.548
+    },
+    {
+        "frame": 186,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.847
+    },
+    {
+        "frame": 187,
+        "objects_detected": 33,
+        "decision": "Proceed",
+        "latency": 1.799
+    },
+    {
+        "frame": 188,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.612
+    },
+    {
+        "frame": 189,
+        "objects_detected": 33,
+        "decision": "Proceed",
+        "latency": 1.293
+    },
+    {
+        "frame": 190,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.669
+    },
+    {
+        "frame": 191,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.836
+    },
+    {
+        "frame": 192,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.614
+    },
+    {
+        "frame": 193,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.465
+    },
+    {
+        "frame": 194,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.568
+    },
+    {
+        "frame": 195,
+        "objects_detected": 29,
+        "decision": "Proceed",
+        "latency": 1.405
+    },
+    {
+        "frame": 196,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.776
+    },
+    {
+        "frame": 197,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.786
+    },
+    {
+        "frame": 198,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.89
+    },
+    {
+        "frame": 199,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.448
+    },
+    {
+        "frame": 200,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.48
+    },
+    {
+        "frame": 201,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.682
+    },
+    {
+        "frame": 202,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.737
+    },
+    {
+        "frame": 203,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.296
+    },
+    {
+        "frame": 204,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.622
+    },
+    {
+        "frame": 205,
+        "objects_detected": 33,
+        "decision": "Proceed",
+        "latency": 1.769
+    },
+    {
+        "frame": 206,
+        "objects_detected": 33,
+        "decision": "Proceed",
+        "latency": 1.886
+    },
+    {
+        "frame": 207,
+        "objects_detected": 31,
+        "decision": "Proceed",
+        "latency": 1.272
+    },
+    {
+        "frame": 208,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.221
+    },
+    {
+        "frame": 209,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.308
+    },
+    {
+        "frame": 210,
+        "objects_detected": 30,
+        "decision": "Proceed",
+        "latency": 1.754
+    },
+    {
+        "frame": 211,
+        "objects_detected": 34,
+        "decision": "Proceed",
+        "latency": 1.756
+    },
+    {
+        "frame": 212,
+        "objects_detected": 33,
+        "decision": "Proceed",
+        "latency": 1.51
+    },
+    {
+        "frame": 213,
+        "objects_detected": 32,
+        "decision": "Proceed",
+        "latency": 1.731
+    },
+    {
+        "frame": 214,
+        "objects_detected": 36,
+        "decision": "Proceed",
+        "latency": 1.751
+    },
+    {
+        "frame": 215,
+        "objects_detected": 36,
+        "decision": "Proceed",
+        "latency": 1.741
+    },
+    {
+        "frame": 216,
+        "objects_detected": 38,
+        "decision": "Proceed",
+        "latency": 1.96
+    },
+    {
+        "frame": 217,
+        "objects_detected": 35,
+        "decision": "Proceed",
+        "latency": 1.752
+    },
+    {
+        "frame": 218,
+        "objects_detected": 33,
+        "decision": "Proceed",
+        "latency": 1.421
+    },
+    {
+        "frame": 219,
+        "objects_detected": 33,
+        "decision": "Proceed",
+        "latency": 1.966
+    },
+    {
+        "frame": 220,
+        "objects_detected": 35,
+        "decision": "Proceed",
+        "latency": 1.696
+    },
+    {
+        "frame": 221,
+        "objects_detected": 37,
+        "decision": "Proceed",
+        "latency": 1.191
+    },
+    {
+        "frame": 222,
+        "objects_detected": 34,
+        "decision": "Proceed",
+        "latency": 2.111
+    },
+    {
+        "frame": 223,
+        "objects_detected": 36,
+        "decision": "Proceed",
+        "latency": 1.805
+    },
+    {
+        "frame": 224,
+        "objects_detected": 36,
+        "decision": "Proceed",
+        "latency": 1.72
+    },
+    {
+        "frame": 225,
+        "objects_detected": 39,
+        "decision": "Proceed",
+        "latency": 1.551
+    },
+    {
+        "frame": 226,
+        "objects_detected": 38,
+        "decision": "Proceed",
+        "latency": 1.844
+    },
+    {
+        "frame": 227,
+        "objects_detected": 39,
+        "decision": "Proceed",
+        "latency": 2.157
+    },
+    {
+        "frame": 228,
+        "objects_detected": 40,
+        "decision": "Proceed",
+        "latency": 1.763
+    },
+    {
+        "frame": 229,
+        "objects_detected": 37,
+        "decision": "Proceed",
+        "latency": 1.608
+    },
+    {
+        "frame": 230,
+        "objects_detected": 39,
+        "decision": "Proceed",
+        "latency": 1.684
+    },
+    {
+        "frame": 231,
+        "objects_detected": 40,
+        "decision": "Proceed",
+        "latency": 1.768
+    },
+    {
+        "frame": 232,
+        "objects_detected": 39,
+        "decision": "Proceed",
+        "latency": 1.961
+    },
+    {
+        "frame": 233,
+        "objects_detected": 44,
+        "decision": "Proceed",
+        "latency": 1.795
+    },
+    {
+        "frame": 234,
+        "objects_detected": 44,
+        "decision": "Proceed",
+        "latency": 1.76
+    },
+    {
+        "frame": 235,
+        "objects_detected": 42,
+        "decision": "Proceed",
+        "latency": 1.904
+    },
+    {
+        "frame": 236,
+        "objects_detected": 39,
+        "decision": "Proceed",
+        "latency": 1.93
+    },
+    {
+        "frame": 237,
+        "objects_detected": 40,
+        "decision": "Proceed",
+        "latency": 1.559
+    },
+    {
+        "frame": 238,
+        "objects_detected": 38,
+        "decision": "Proceed",
+        "latency": 1.669
+    },
+    {
+        "frame": 239,
+        "objects_detected": 37,
+        "decision": "Proceed",
+        "latency": 1.333
+    },
+    {
+        "frame": 240,
+        "objects_detected": 37,
+        "decision": "Proceed",
+        "latency": 1.952
+    },
+    {
+        "frame": 241,
+        "objects_detected": 38,
+        "decision": "Proceed",
+        "latency": 2.084
+    },
+    {
+        "frame": 242,
+        "objects_detected": 36,
+        "decision": "Proceed",
+        "latency": 1.471
+    },
+    {
+        "frame": 243,
+        "objects_detected": 35,
+        "decision": "Proceed",
+        "latency": 1.736
+    },
+    {
+        "frame": 244,
+        "objects_detected": 37,
+        "decision": "Proceed",
+        "latency": 1.698
+    },
+    {
+        "frame": 245,
+        "objects_detected": 37,
+        "decision": "Proceed",
+        "latency": 1.64
+    },
+    {
+        "frame": 246,
+        "objects_detected": 36,
+        "decision": "Proceed",
+        "latency": 1.52
+    },
+    {
+        "frame": 247,
+        "objects_detected": 34,
+        "decision": "Proceed",
+        "latency": 1.497
+    },
+    {
+        "frame": 248,
+        "objects_detected": 37,
+        "decision": "Proceed",
+        "latency": 1.808
+    },
+    {
+        "frame": 249,
+        "objects_detected": 33,
+        "decision": "Proceed",
+        "latency": 1.81
+    },
+    {
+        "frame": 250,
+        "objects_detected": 34,
+        "decision": "Proceed",
+        "latency": 1.72
+    },
+    {
+        "frame": 251,
+        "objects_detected": 36,
+        "decision": "Proceed",
+        "latency": 1.437
+    },
+    {
+        "frame": 252,
+        "objects_detected": 36,
+        "decision": "Proceed",
+        "latency": 1.773
+    },
+    {
+        "frame": 253,
+        "objects_detected": 38,
+        "decision": "Proceed",
+        "latency": 2.003
+    },
+    {
+        "frame": 254,
+        "objects_detected": 40,
+        "decision": "Proceed",
+        "latency": 1.819
+    },
+    {
+        "frame": 255,
+        "objects_detected": 39,
+        "decision": "Proceed",
+        "latency": 1.587
+    },
+    {
+        "frame": 256,
+        "objects_detected": 39,
+        "decision": "Proceed",
+        "latency": 1.795
+    },
+    {
+        "frame": 257,
+        "objects_detected": 39,
+        "decision": "Proceed",
+        "latency": 1.955
+    },
+    {
+        "frame": 258,
+        "objects_detected": 40,
+        "decision": "Proceed",
+        "latency": 1.753
+    },
+    {
+        "frame": 259,
+        "objects_detected": 41,
+        "decision": "Proceed",
+        "latency": 1.494
+    },
+    {
+        "frame": 260,
+        "objects_detected": 42,
+        "decision": "Proceed",
+        "latency": 1.966
+    },
+    {
+        "frame": 261,
+        "objects_detected": 41,
+        "decision": "Proceed",
+        "latency": 1.846
+    },
+    {
+        "frame": 262,
+        "objects_detected": 40,
+        "decision": "Proceed",
+        "latency": 1.901
+    },
+    {
+        "frame": 263,
+        "objects_detected": 41,
+        "decision": "Proceed",
+        "latency": 1.735
+    },
+    {
+        "frame": 264,
+        "objects_detected": 42,
+        "decision": "Proceed",
+        "latency": 1.908
+    },
+    {
+        "frame": 265,
+        "objects_detected": 41,
+        "decision": "Proceed",
+        "latency": 1.508
+    },
+    {
+        "frame": 266,
+        "objects_detected": 39,
+        "decision": "Proceed",
+        "latency": 1.828
+    }
+]

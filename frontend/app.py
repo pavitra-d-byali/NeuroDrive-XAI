@@ -3,170 +3,238 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import streamlit as st
+import pydeck as pdk
 import pandas as pd
 import numpy as np
-import pydeck as pdk
-import plotly.graph_objs as go
+import plotly.graph_objects as go
 
-st.set_page_config(page_title="NeuroDrive AVS", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(layout="wide", page_title="NeuroDrive-XAI System Dashboard")
 
-# Inject Dark Mode and custom CSS
+# Dark Theme CSS enforcing strict system look
 st.markdown("""
 <style>
-    /* Darken the background explicitly */
-    .stApp {
-        background-color: #0e1117;
-    }
-    .css-1d391kg {
-        background-color: #1a1c23;
-    }
+    .stApp { background-color: #0e1117; color: white; }
+    .css-1d391kg { background-color: #1a1c23; }
+    div[data-testid="stMetricValue"] { font-size: 24px; font-weight: bold; }
 </style>
 """, unsafe_allow_html=True)
 
+st.title("🛰️ NeuroDrive-XAI System Dashboard")
+
+METERS_TO_DEG = 1 / 111000.0
+
 @st.cache_data
-def load_sample_log():
-    # If the file exists, load it. Otherwise mock bounds.
+def load_and_structure_data():
     if os.path.exists("dataset/hybrid_features.csv"):
         df = pd.read_csv("dataset/hybrid_features.csv")
     else:
+        # Fallback dataset mapping
         df = pd.DataFrame({
             "distance_to_object": np.random.uniform(5, 50, 100),
             "relative_velocity": np.random.uniform(-10, 10, 100),
             "lane_offset": np.random.uniform(-1.5, 1.5, 100),
-            "lane_curvature": np.random.uniform(-0.1, 0.1, 100),
+            "steering_angle": np.random.uniform(-0.5, 0.5, 100),
             "brake": np.random.choice([0, 1], 100)
         })
-    return df
 
-df = load_sample_log()
+    frames = []
+    
+    for idx, row in df.iterrows():
+        dist = row['distance_to_object']
+        offset = row['lane_offset']
+        steer = row['steering_angle']
+        brake = int(row['brake'])
+        
+        is_critical = (brake == 1)
+        
+        # Calculate pseudo-trajectory curved by steering angle
+        mid_y = (dist / 2) * METERS_TO_DEG
+        mid_x = (steer * 20.0) * METERS_TO_DEG 
+        end_y = dist * METERS_TO_DEG
+        end_x = (steer * 40.0) * METERS_TO_DEG
+        
+        traj = [[0, 0], [mid_x, mid_y], [end_x, end_y]]
+        
+        # Calculate Counterfactual
+        # Mathematical approximation: how much distance Delta to flip decision
+        if brake == 1:
+            delta = round((15.0 - dist) + 0.1, 1) if dist < 15.0 else 2.5
+        else:
+            delta = round(-abs(dist - 14.5), 1)
+            
+        objs = []
+        if dist < 99.0:
+            objs.append({
+                "lon": offset * METERS_TO_DEG,
+                "lat": dist * METERS_TO_DEG,
+                "is_critical": is_critical
+            })
 
-st.title("🛰️ NeuroDrive Streetscape.gl")
+        frame = {
+            "risk": 0.95 if brake == 1 else 0.05,
+            "brake_prob": 0.88 if brake == 1 else 0.02,
+            "action": "BRAKE" if brake == 1 else "CONTINUE",
+            "features": {
+                "distance_to_object": round(dist, 1),
+                "lane_offset": round(offset, 2),
+                "relative_velocity": round(row['relative_velocity'], 1)
+            },
+            "objects": objs,
+            "trajectory": traj,
+            "counterfactual": {
+                "delta": delta
+            }
+        }
+        frames.append(frame)
+    return frames
 
-# Frame Selection
-frame_idx = st.slider("Timeline Control", 0, len(df)-1, 50, label_visibility="collapsed")
-selected = df.iloc[frame_idx]
+frames = load_and_structure_data()
+num_frames = len(frames)
 
-# Map physical coordinates into long/lat offset logic to trick PyDeck into rendering local X/Y bounding boxes
-# Base center (fake GPS matching an arbitrary intersection)
-BASE_LAT = 37.7749
-BASE_LON = -122.4194
+# ==========================================
+# 🎞️ TIMELINE CONTROL (MASTER SYNC)
+# ==========================================
+frame_idx = st.slider("System Frame Synchronization", 0, num_frames - 1, 50)
+frame = frames[frame_idx]
 
-# 1 degree of lat ~ 111km. So 1 meter map offset = (1 / 111,000)
-METERS_TO_DEG = 1 / 111000.0
+# ==========================================
+# 🚗 PYDECK SCENE (EGO + OBJECTS + TRAJECTORY)
+# ==========================================
 
-ego_data = pd.DataFrame([{
-    "lat": BASE_LAT, 
-    "lon": BASE_LON,
-    "color": [0, 255, 150, 200], # Neon Green Ego Car
-    "elevation": 1.5
-}])
+# Ego Vehicle
+ego_layer = pdk.Layer(
+    "ScatterplotLayer",
+    data=[{"lat": 0, "lon": 0}],
+    get_position="[lon, lat]",
+    get_radius=1.5,
+    radius_scale=1,
+    get_fill_color=[0, 255, 150, 200], # Neon Green
+)
 
-obj_dist = selected['distance_to_object']
-obj_offset = selected['lane_offset']
+# Objects
+obj_layer = pdk.Layer(
+    "ScatterplotLayer",
+    data=frame["objects"],
+    get_position="[lon, lat]",
+    get_radius=3,
+    get_fill_color="[255, 50, 50, 250] if is_critical else [50, 150, 255, 250]",
+)
 
-# Calculate 3D Obstacle coordinate
-obs_data = pd.DataFrame([{
-    "lat": BASE_LAT + (obj_dist * METERS_TO_DEG),
-    "lon": BASE_LON + (obj_offset * METERS_TO_DEG),
-    "color": [50, 150, 255, 230] if selected['brake'] == 0 else [255, 50, 50, 230], # Blue if safe, Red if colliding
-    "elevation": 2.5
-}])
+# Predicted Trajectory Path
+traj_layer = pdk.Layer(
+    "PathLayer",
+    data=[{"path": frame["trajectory"]}],
+    get_path="path",
+    get_width=2,
+    width_min_pixels=4,
+    get_color=[255, 165, 0, 200], # Orange projection
+)
 
-col1, col2 = st.columns([1, 3])
+view_state = pdk.ViewState(
+    latitude=0.0001,
+    longitude=0,
+    zoom=19.5,
+    pitch=60, # 3D Angled Pitch
+)
+
+deck = pdk.Deck(
+    layers=[ego_layer, obj_layer, traj_layer],
+    initial_view_state=view_state,
+    map_style="mapbox://styles/mapbox/dark-v10",
+    tooltip={"text": "Coordinates Locked"}
+)
+
+# Render Scene
+st.pydeck_chart(deck, use_container_width=True)
+
+# ==========================================
+# 🚥 METRICS AND XAI PANELS
+# ==========================================
+
+col1, col2 = st.columns([2, 1])
 
 with col1:
-    st.markdown("### Telemetry Streams")
-    
-    # Velocity Plotly Dashboard
-    historical_vel = df['relative_velocity'].iloc[max(0, frame_idx-20):frame_idx+1]
-    fig_vel = go.Figure()
-    fig_vel.add_trace(go.Scatter(
-        y=historical_vel.values,
-        mode='lines',
-        line=dict(color='#888888', width=2),
+    st.subheader("Telemetry History")
+    # Grab rolling subset up to current timeframe
+    start_idx = max(0, frame_idx - 50)
+    history = pd.DataFrame(frames[start_idx:frame_idx+1])
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        y=history["risk"],
+        mode="lines",
+        name="Risk Factor",
+        line=dict(color="orange")
+    ))
+
+    fig.add_trace(go.Scatter(
+        y=history["brake_prob"],
+        mode="lines",
+        name="Braking Actuation",
+        line=dict(color="red"),
         fill='tozeroy',
-        fillcolor='rgba(150, 150, 150, 0.1)'
+        fillcolor='rgba(255, 0, 0, 0.1)'
     ))
-    fig_vel.update_layout(
-        title="Relative Velocity",
-        margin=dict(l=0, r=0, t=30, b=0),
+
+    fig.update_layout(
+        margin=dict(l=0, r=0, t=10, b=0),
         height=200,
-        paper_bgcolor="#1a1c23",
-        plot_bgcolor="#1a1c23",
+        paper_bgcolor="#0e1117",
+        plot_bgcolor="#0e1117",
         font=dict(color="white"),
         xaxis=dict(showgrid=False, showticklabels=False),
-        yaxis=dict(showgrid=True, gridcolor='#333333')
+        yaxis=dict(showgrid=True, gridcolor='#333333', range=[0, 1.1])
     )
-    st.plotly_chart(fig_vel, use_container_width=True)
 
-    # Risk Probability
-    historical_brake = df['brake'].iloc[max(0, frame_idx-20):frame_idx+1].rolling(3).mean()
-    fig_acc = go.Figure()
-    fig_acc.add_trace(go.Scatter(
-        y=historical_brake.values,
-        mode='lines',
-        line=dict(color='yellow' if selected['brake'] == 0 else 'red', width=2)
-    ))
-    fig_acc.update_layout(
-        title="Probability of Action",
-        margin=dict(l=0, r=0, t=30, b=0),
-        height=200,
-        paper_bgcolor="#1a1c23",
-        plot_bgcolor="#1a1c23",
-        font=dict(color="white"),
-        xaxis=dict(showgrid=False, showticklabels=False),
-        yaxis=dict(showgrid=True, gridcolor='#333333')
-    )
-    st.plotly_chart(fig_acc, use_container_width=True)
-    
-    st.metric("Neural Frame Decision", "🟢 CONTINUE" if selected['brake'] == 0 else "🛑 INITIATE BRAKE")
-
+    st.plotly_chart(fig, use_container_width=True)
 
 with col2:
-    # 3D Pydeck Visualization
-    # Render Ego Vehicle
-    ego_layer = pdk.Layer(
-        "ColumnLayer",
-        data=ego_data,
-        get_position=["lon", "lat"],
-        get_elevation="elevation",
-        elevation_scale=1,
-        radius=1.5, # 1.5 meters wide
-        get_fill_color="color",
-        pickable=True,
-        auto_highlight=True,
-    )
+    st.subheader("XAI Explainer")
     
-    # Render Detected Object Bounding Box
-    if obj_dist < 99.0: # Ignore objects that are logged at 100m (none)
-        obs_layer = pdk.Layer(
-            "ColumnLayer",
-            data=obs_data,
-            get_position=["lon", "lat"],
-            get_elevation="elevation",
-            elevation_scale=1,
-            radius=1.5,
-            get_fill_color="color",
-            pickable=True,
-            auto_highlight=True,
-        )
-        layers = [ego_layer, obs_layer]
-    else:
-        layers = [ego_layer]
+    act_color = "🔴" if frame['action'] == "BRAKE" else "🟢"
+    st.markdown(f"**Action Executed:** {act_color} {frame['action']}")
 
-    view_state = pdk.ViewState(
-        latitude=BASE_LAT + (15.0 * METERS_TO_DEG), # Look slightly ahead of ego
-        longitude=BASE_LON,
-        zoom=19.5,
-        pitch=60, # 3D Angled Pitch replicating Streetscape.gl
-        bearing=0,
-    )
+    st.markdown(f"""
+    **Sensory Tensors:**
+    - Distance to Object: `{frame['features']['distance_to_object']} m`
+    - Ego Lane Offset: `{frame['features']['lane_offset']} m`
+    - Relative Velocity: `{frame['features']['relative_velocity']} m/s`
+
+    **Mathematical Counterfactual:**
+    """)
     
-    r = pdk.Deck(
-        layers=layers,
-        initial_view_state=view_state,
-        map_style="mapbox://styles/mapbox/dark-v10", # Enforce absolute dark mode maps
-        tooltip={"text": "Object Boundary"}
-    )
+    delta = frame['counterfactual']['delta']
+    sign = "+" if delta > 0 else ""
+    target = "CONTINUE" if frame['action'] == "BRAKE" else "BRAKE"
     
-    st.pydeck_chart(r, use_container_width=True)
+    st.info(f"If Distance altered by **{sign}{delta}m** → {target}")
+
+# ==========================================
+# 📈 GLOBAL DECISION TIMELINE
+# ==========================================
+st.subheader("Global Action Sequence")
+
+actions = [1 if f["action"] == "BRAKE" else 0 for f in frames]
+
+timeline_fig = go.Figure()
+timeline_fig.add_trace(go.Scatter(
+    y=actions,
+    mode="lines",
+    line=dict(shape="hv", color="#00ffcc"), # Step function line
+    name="Timeline"
+))
+
+# Mark the specific synchronized frame physically on the timeline
+timeline_fig.add_vline(x=frame_idx, line_width=2, line_dash="dash", line_color="red")
+
+timeline_fig.update_layout(
+    margin=dict(l=0, r=0, t=10, b=20),
+    height=120,
+    paper_bgcolor="#0e1117",
+    plot_bgcolor="#0e1117",
+    font=dict(color="white"),
+    xaxis=dict(showgrid=False),
+    yaxis=dict(showgrid=False, tickvals=[0, 1], ticktext=["STR", "BRK"])
+)
+
+st.plotly_chart(timeline_fig, use_container_width=True)

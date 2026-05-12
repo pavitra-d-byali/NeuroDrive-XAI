@@ -1,0 +1,71 @@
+# ============================================================
+# NeuroDrive-XAI — Vehicle Control Module
+# Dockerfile.control
+# ============================================================
+# Build: docker build -f Dockerfile.control -t neurodrive-control .
+# Run:   docker run --gpus all -p 8001:8001 \
+#          -v $(pwd)/weights:/app/weights \
+#          -v $(pwd)/datasets:/app/datasets \
+#          -e NEURODRIVE_RCN_ONNX=/app/weights/control/residual_net.onnx \
+#          -e NEURODRIVE_NORM_STATS=/app/datasets/nuscenes/norm_stats.pkl \
+#          neurodrive-control
+# ============================================================
+
+FROM pytorch/pytorch:2.2.0-cuda11.8-cudnn8-runtime
+
+LABEL maintainer="NeuroDrive-XAI Team"
+LABEL version="1.0.0"
+LABEL description="Vehicle Control (PID + MPC) microservice"
+
+# ── System dependencies ──────────────────────────────────────────────────────
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# ── Working directory ────────────────────────────────────────────────────────
+WORKDIR /app
+
+# ── Python dependencies ──────────────────────────────────────────────────────
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# ── Control-specific extras ──────────────────────────────────────────────────
+RUN pip install --no-cache-dir \
+    fastapi==0.111.0 \
+    uvicorn[standard]==0.30.0 \
+    onnxruntime-gpu==1.18.0 \
+    scipy==1.13.0 \
+    nuscenes-devkit==1.1.11 \
+    shap==0.45.0 \
+    pyyaml==6.0 \
+    scikit-learn==1.5.0
+
+# ── Copy source ──────────────────────────────────────────────────────────────
+COPY control/   control/
+COPY api/       api/
+COPY dataset/   dataset/
+COPY control/config.yaml control/config.yaml
+
+# ── Create artifact directories ──────────────────────────────────────────────
+RUN mkdir -p weights/control datasets logs/control artifacts/carla_records
+
+# ── Environment ──────────────────────────────────────────────────────────────
+ENV NEURODRIVE_CONTROL_CONFIG=control/config.yaml
+ENV NEURODRIVE_RCN_ONNX=weights/control/residual_net.onnx
+ENV NEURODRIVE_NORM_STATS=datasets/nuscenes/norm_stats.pkl
+ENV PYTHONUNBUFFERED=1
+ENV OMP_NUM_THREADS=4
+
+# ── Health check ─────────────────────────────────────────────────────────────
+HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
+    CMD curl -f http://localhost:8001/health || exit 1
+
+# ── Expose port ──────────────────────────────────────────────────────────────
+EXPOSE 8001
+
+# ── Entrypoint ───────────────────────────────────────────────────────────────
+CMD ["uvicorn", "api.control_routes:app", \
+     "--host", "0.0.0.0", "--port", "8001", \
+     "--workers", "2", "--log-level", "info"]

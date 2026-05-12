@@ -1,0 +1,118 @@
+# ============================================================
+# NeuroDrive-XAI — Vehicle Control Module Configuration
+# Module 4: PID + MPC Controller
+# ============================================================
+
+# ── Vehicle kinematic parameters (bicycle model) ─────────────
+vehicle:
+  wheelbase: 2.875          # metres (CARLA default Lincoln MKZ)
+  max_steer_angle: 70.0     # degrees
+  max_throttle: 1.0
+  max_brake: 1.0
+  mass: 1845.0              # kg
+  max_lateral_accel: 4.0    # m/s² (ISO 4138 comfort limit)
+  max_longitudinal_accel: 3.0  # m/s²
+  max_decel: 8.0            # m/s² (AEB hard-brake)
+
+# ── PID controller gains ──────────────────────────────────────
+pid:
+  longitudinal:
+    kp: 0.40
+    ki: 0.10
+    kd: 0.05
+    windup_limit: 0.3       # anti-windup clamp
+    derivative_filter_tau: 0.05   # low-pass filter time constant (s)
+    output_min: 0.0
+    output_max: 1.0
+
+  lateral:
+    kp: 1.20
+    ki: 0.02
+    kd: 0.25
+    windup_limit: 0.4
+    derivative_filter_tau: 0.10
+    output_min: -1.0
+    output_max: 1.0
+
+# ── MPC parameters ───────────────────────────────────────────
+mpc:
+  horizon: 15               # prediction steps
+  dt: 0.1                   # seconds per step
+  solver: "scipy_minimize"  # "scipy_minimize" | "osqp" | "casadi"
+
+  # State weights  [x, y, heading, velocity]
+  Q: [1.0, 1.0, 5.0, 2.0]  # state error penalties
+
+  # Control input weights [steering, throttle/brake]
+  R: [0.5, 0.2]             # control effort penalties
+
+  # Control rate-of-change weights (jerk / steering rate)
+  Rd: [2.0, 0.5]
+
+  # Constraints
+  v_min: 0.0                # m/s
+  v_max: 16.67              # ~60 kph
+  a_min: -8.0               # m/s²
+  a_max: 3.0                # m/s²
+  delta_min: -0.61           # rad (~35°)
+  delta_max: 0.61            # rad (~35°)
+  delta_rate_max: 0.35       # rad/s
+
+# ── Training (learned MPC residual correction net) ───────────
+training:
+  batch_size: 256
+  epochs: 80
+  learning_rate: 3.0e-4
+  weight_decay: 1.0e-4
+  lr_scheduler: "cosine"
+  warmup_epochs: 5
+  grad_clip: 1.0
+  seed: 42
+  num_workers: 4
+  pin_memory: true
+  checkpoint_dir: "weights/control"
+  log_dir: "logs/control"
+  dataset_path: "datasets/nuscenes_control"
+  val_split: 0.15
+  test_split: 0.05
+
+# ── Dataset ───────────────────────────────────────────────────
+dataset:
+  name: "nuscenes"           # "nuscenes" | "carla_recorded" | "kitti_raw"
+  # nuScenes v1.0-mini path (update after download)
+  root: "datasets/nuscenes"
+  version: "v1.0-mini"       # "v1.0-mini" | "v1.0-trainval"
+  frequency: 2               # Hz annotation frequency → interpolated to 10 Hz
+  history_steps: 5           # past frames used as context
+  future_steps: 15           # prediction horizon frames
+  min_speed_filter: 0.5      # m/s — skip near-stationary frames
+  normalize_inputs: true
+
+# ── Inference / real-time ─────────────────────────────────────
+inference:
+  mode: "mpc"                # "pid" | "mpc" | "hybrid" (PID fallback when MPC fails)
+  target_speed: 10.0         # m/s default cruise speed
+  frequency: 20              # Hz control loop
+  onnx_model: "weights/control/residual_net.onnx"
+  tensorrt_engine: "weights/control/residual_net.trt"
+  use_tensorrt: false
+
+# ── CARLA simulation ─────────────────────────────────────────
+carla:
+  host: "localhost"
+  port: 2000
+  timeout: 20.0              # seconds
+  map: "Town03"
+  weather: "ClearNoon"
+  ego_vehicle: "vehicle.lincoln.mkz_2020"
+  target_speed: 10.0         # m/s
+  spawn_point_index: 0
+  record_path: "artifacts/carla_records"
+
+# ── FastAPI ──────────────────────────────────────────────────
+api:
+  host: "0.0.0.0"
+  port: 8001
+  workers: 2
+  log_level: "info"
+  cors_origins: ["*"]

@@ -1,0 +1,37 @@
+[
+    {
+        "timestamp": 1776852198.531058,
+        "frame": 0,
+        "num_objects": 0,
+        "action": "Proceed",
+        "latency_ms": 1515.9149169921875
+    },
+    {
+        "timestamp": 1776852200.144949,
+        "frame": 1,
+        "num_objects": 10,
+        "action": "Proceed",
+        "latency_ms": 1598.5281467437744
+    },
+    {
+        "timestamp": 1776852201.6065505,
+        "frame": 2,
+        "num_objects": 10,
+        "action": "Proceed",
+        "latency_ms": 1457.1387767791748
+    },
+    {
+        "timestamp": 1776852203.0930183,
+        "frame": 3,
+        "num_objects": 10,
+        "action": "Proceed",
+        "latency_ms": 1483.2780361175537
+    },
+    {
+        "timestamp": 1776852204.3626564,
+        "frame": 4,
+        "num_objects": 9,
+        "action": "Proceed",
+        "latency_ms": 1266.6819095611572
+    }
+]

@@ -43,7 +43,14 @@ class DecisionEngine:
             return "Slow"
         return current_action
 
-    def decide(self, scene):
+    def decide(self, scene, latency_ms=0.0):
+        """
+        Decision logic with Deadline Enforcement (Point 5).
+        """
+        if latency_ms > 100.0:
+            print(f"[FAIL-SAFE] Perception too slow ({latency_ms:.1f}ms). Triggering Emergency Slow.")
+            return {"action": "Slow", "reason": "Hardware latency fail-safe"}
+            
         objects = scene.get("objects", [])
         lane_geometry = scene.get("lane_geometry", {})
         confidences = scene.get("confidence", {"lane": 1.0, "detection": 1.0, "depth": 1.0})

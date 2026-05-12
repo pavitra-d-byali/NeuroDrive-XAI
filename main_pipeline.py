@@ -2,6 +2,7 @@ import argparse
 import cv2
 import json
 import os
+import numpy as np
 from tqdm import tqdm
 
 from dataset.bdd_loader import BDD100kLoader
@@ -11,7 +12,9 @@ from perception.depth_estimator import DepthEstimator
 from scene_representation.scene_builder import SceneBuilder
 from planning.decision_engine import DecisionEngine
 from planning.controller import VehicleController
-from explainability.gradcam import ExplainabilityModule
+from explainability.gradcam import PerceptionXAI
+from explainability.reasoning_engine import ReasoningEngine
+from explainability.uncertainty_module import UncertaintyModule
 from visualization.visualizer import Visualizer
 
 # Extended Modules
@@ -24,7 +27,8 @@ from perception.lane_detector import LaneDetector
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--video", type=str, default="demo/sample_drive.mp4", help="Path to input video")
+    parser.add_argument("--video", "--input", "-i", type=str, default="demo/messy_drive.mp4", help="Path to input video")
+    parser.add_argument("--output", "-o", type=str, default="artifacts/output_demo.mp4", help="Path to save output video")
     parser.add_argument("--debug", action="store_true", help="Enable debugging mode for perception")
     args = parser.parse_args()
     
@@ -41,7 +45,9 @@ def main():
     scene_builder = SceneBuilder()
     decision_engine = DecisionEngine(history_size=5)
     controller = VehicleController()
-    explainability = ExplainabilityModule(perception)
+    explainability = PerceptionXAI(perception)
+    reasoner = ReasoningEngine()
+    uncertainty_engine = UncertaintyModule()
     visualizer = Visualizer()
     
     # Initialize extension modules
@@ -58,13 +64,12 @@ def main():
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out_video = cv2.VideoWriter("artifacts/output_demo.mp4", fourcc, fps, (width, height))
+    out_video = cv2.VideoWriter(args.output, fourcc, fps, (width, height))
     
     explanations = []
     
     print(f"Starting ML Integrated pipeline on {args.video}...")
     frame_idx = 0
-    cap.release()
     
     for data in tqdm(loader.get_frames(), desc="Processing frames"):
         metrics.start_frame()
@@ -114,11 +119,20 @@ def main():
         # 8. Vehicle Control
         commands = controller.control(decision)
         
-        # 9. GradCAM Explainability
+        # 10. Integrated XAI Reasoning (real GradCAM or saliency proxy)
         input_tensor = features[0] if (isinstance(features, list) and len(features) > 0) else None
-        heatmap = explainability.generate_heatmap(frame, input_tensor)
+        heatmap = explainability.explain_detection(
+            frame, input_tensor=input_tensor, detections=valid_detections
+        )
         
-        # 10. Advanced API Visualization
+        # Calculate uncertainty based on detection confidences
+        avg_conf = np.mean([d["score"] for d in valid_detections]) if valid_detections else 1.0
+        uncertainty = 1.0 - avg_conf
+        
+        # Generate Natural Language Reasoning
+        reasoning_text = reasoner.generate_justification(scene, decision)
+        
+        # 11. Advanced API Visualization
         vis_frame = visualizer.overlay(frame, scene, valid_detections, lane_mask, drivable_mask, 
                                        heatmap, decision, commands)
         
@@ -126,12 +140,29 @@ def main():
         logger.log_frame(frame_idx, scene.get("objects", []), decision, latency)
         out_video.write(vis_frame)
         
-        # Record explanation logs
+        # Record explanation logs (strip non-serializable objects)
+        scene_log = {
+            "objects": [
+                {k: (float(v) if isinstance(v, (np.floating, np.integer)) else
+                     v.tolist() if hasattr(v, 'tolist') else v)
+                 for k, v in obj.items() if k != 'predicted_position'}
+                for obj in scene.get("objects", [])
+            ],
+            "lane_geometry": {
+                k: ([list(p) for p in v] if isinstance(v, list) else v)
+                for k, v in scene.get("lane_geometry", {}).items()
+            },
+        }
         explanations.append({
             "frame": frame_idx,
-            "scene": scene,
-            "decision": decision,
-            "commands": commands
+            "scene": scene_log,
+            "decision": {k: (float(v) if isinstance(v, (np.floating, np.integer)) else v)
+                         for k, v in decision.items() if k != 'history'},
+            "commands": {k: float(v) if isinstance(v, (float, np.floating)) else v
+                         for k, v in commands.items()},
+            "reasoning": reasoning_text,
+            "uncertainty": float(uncertainty),
+            "latency": float(latency)
         })
         
         frame_idx += 1

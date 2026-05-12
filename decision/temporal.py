@@ -30,12 +30,20 @@ class TemporalSmoother:
         self.brake_history.append(rb_prob)
         
         # Temporal smoothing algorithm
-        # Steering = Exponential or Simple Moving Average
-        smooth_steer = np.mean(self.steer_history)
+        # Use median to discard single-frame sensor fault gaps (Ghost Caching)
+        smooth_steer = np.median(self.steer_history)
+        avg_brake = np.median(self.brake_history)
+        
+        # Physics Regularizer: prevent 'Swerving Brake' paradox
+        # If we are steering heavily, we must reduce braking to maintain traction
+        abs_steer = abs(smooth_steer)
+        if abs_steer > 0.5: # sharp bend
+            # Limit brake probability inversely proportional to steering angle
+            max_brake_allowed = max(0.0, 1.0 - (abs_steer - 0.5) * 2)
+            avg_brake = min(avg_brake, max_brake_allowed)
         
         # Braking = Hysteresis over time.
         # It takes severe probability OR sustained probability to trigger/hold a brake.
-        avg_brake = np.mean(self.brake_history)
         final_brake = 1 if avg_brake > self.brake_hysteresis_threshold else 0
         
         return smooth_steer, final_brake, avg_brake

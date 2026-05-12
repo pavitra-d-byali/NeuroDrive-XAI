@@ -8,8 +8,11 @@ class BDD100kLoader:
         self.data_path = data_path
         self.is_video = data_path.endswith(('.mp4', '.avi', '.mov'))
         
+        self.image_files = []
         if self.is_video:
             self.cap = cv2.VideoCapture(data_path)
+            if not self.cap.isOpened():
+                print(f"Error: Could not open video file {data_path}")
             self.labels = {}
         else:
             self.images_path = os.path.join(dataset_root, "images", "100k", "train")
@@ -19,13 +22,18 @@ class BDD100kLoader:
             if os.path.isdir(data_path):
                 self.images_path = data_path
                 self.image_files = sorted(glob.glob(os.path.join(data_path, "*.jpg")))
+            elif os.path.exists(data_path) and data_path.endswith(('.jpg', '.jpeg', '.png')):
+                self.image_files = [data_path]
             
             self.labels = {}
             if os.path.exists(self.labels_path):
                 with open(self.labels_path, 'r') as f:
-                    data = json.load(f)
-                    for item in data:
-                        self.labels[item['name']] = item
+                    try:
+                        data = json.load(f)
+                        for item in data:
+                            self.labels[item['name']] = item
+                    except json.JSONDecodeError:
+                        print(f"Warning: Could not parse label file {self.labels_path}")
 
     def get_frames(self):
         if self.is_video:

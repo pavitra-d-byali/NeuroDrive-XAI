@@ -117,3 +117,40 @@ class CounterfactualEngine:
              explanation = {"action": current_action, "counterfactual": "No reasonable distance delta found"}
              
         return explanation
+class PerformanceMetrics:
+    """
+    Utility to track frame-level latency and decision statistics.
+    """
+    def __init__(self):
+        self.frame_times = []
+        self.start_time = None
+        self.decisions = []
+
+    def start_frame(self):
+        self.start_time = time.time()
+
+    def log_latency(self):
+        if self.start_time:
+            latency = time.time() - self.start_time
+            self.frame_times.append(latency)
+            return latency
+        return 0.0
+
+    def log_tracked_objects(self, count):
+        pass
+
+    def log_decision(self, decision):
+        self.decisions.append(decision)
+
+    def print_summary(self):
+        if not self.frame_times:
+            print("No metrics recorded.")
+            return
+            
+        avg_lat = np.mean(self.frame_times) * 1000
+        fps = 1.0 / np.mean(self.frame_times)
+        print(f"\n--- Performance Summary ---")
+        print(f"Avg Latency: {avg_lat:.2f} ms")
+        print(f"Throughput:  {fps:.1f} FPS")
+        print(f"Total Frames: {len(self.frame_times)}")
+        print(f"---------------------------\n")

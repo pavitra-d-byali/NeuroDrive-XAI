@@ -1,22 +1,27 @@
 import json
 import os
+import time
 
 class PipelineLogger:
-    def __init__(self, log_path="logs/pipeline_logs.json"):
-        self.log_path = log_path
-        self.logs = []
-        os.makedirs(os.path.dirname(self.log_path), exist_ok=True)
-        
+    """
+    Logs frame-level metadata and system state for offline analysis.
+    """
+    def __init__(self, log_dir="logs"):
+        self.log_dir = log_dir
+        os.makedirs(log_dir, exist_ok=True)
+        self.log_data = []
+
     def log_frame(self, frame_idx, objects, decision, latency):
-        frame_log = {
+        self.log_data.append({
+            "timestamp": time.time(),
             "frame": frame_idx,
-            "objects_detected": len(objects),
-            "decision": decision.get("action", "Proceed"),
-            "latency": round(latency, 3)
-        }
-        self.logs.append(frame_log)
-        
+            "num_objects": len(objects),
+            "action": decision.get("action"),
+            "latency_ms": latency * 1000
+        })
+
     def save(self):
-        with open(self.log_path, 'w') as f:
-            json.dump(self.logs, f, indent=4)
-        print(f"Pipeline logs saved to {self.log_path}")
+        log_path = os.path.join(self.log_dir, "system_audit.json")
+        with open(log_path, "w") as f:
+            json.dump(self.log_data, f, indent=4)
+        print(f"System logs saved to {log_path}")

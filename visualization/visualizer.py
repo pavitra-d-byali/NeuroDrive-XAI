@@ -54,26 +54,45 @@ class Visualizer:
             anchor_shift = w // 2 - trajectory_plan[0][0] 
             cv2.polylines(vis_frame, [pts], False, (255, 0, 255), 4)
 
-        # 4. Neural Risk Heatmap & Decision HUD
-        hud_bg = vis_frame[40:220, 40:800].copy()
-        cv2.rectangle(vis_frame, (40, 40), (800, 220), (0, 0, 0), -1)
-        vis_frame = cv2.addWeighted(vis_frame, 0.6, frame, 0.4, 0)
+        # 4. HUD & Performance Telemetry (Point 6/8)
+        hud_h = 160
+        sub_img = vis_frame[0:hud_h, 0:w]
+        white_rect = np.full_like(sub_img, 255)
+        vis_frame[0:hud_h, 0:w] = cv2.addWeighted(sub_img, 0.5, white_rect, 0.5, 0)
         
+        # Decision & Action
         action = decision.get("action", "Proceed")
-        reason = decision.get("reason", "...")
         risk = decision.get("risk_score", 0.0)
-        fallback = decision.get("fallback", False)
+        ac_color = (0, 0, 200) if action == "Brake" else ((0, 140, 255) if action == "Slow" else (0, 150, 0))
+        cv2.putText(vis_frame, f"NEURODRIVE-XAI | STATUS: {action.upper()}", (20, 40), self.font, 0.9, ac_color, 2)
+        cv2.putText(vis_frame, f"Risk Probability: {risk * 100:.1f}%", (20, 75), self.font, 0.6, (50, 50, 50), 1)
         
-        ac_color = (0, 0, 255) if action == "Brake" else ((0, 215, 255) if action == "Slow" else (0, 255, 0))
-        cv2.putText(vis_frame, f"Action: {action} (Risk: {risk:.2f})", (50, 70), self.font, 0.8, ac_color, 2)
-        cv2.putText(vis_frame, str(reason)[:60] + "...", (50, 105), self.font, 0.6, (200, 200, 200), 1)
+        # Controls Telemetry
+        steer = controls.get("steering", 0.0)
+        thr = controls.get("throttle", 0.0)
+        brk = controls.get("brake", 0.0)
         
-        if fallback:
-             cv2.putText(vis_frame, "SYSTEM FALLBACK ACTIVATED", (50, 135), self.font, 0.6, (0, 0, 255), 2)
-             
-        # History
-        hist = decision.get("history", [])
-        hist_str = " -> ".join(hist[-4:]) if hist else "..."
-        cv2.putText(vis_frame, f"History: {hist_str}", (50, 165), self.font, 0.5, (150, 150, 150), 1)
+        cv2.putText(vis_frame, f"THR: {thr*100:.0f}% | BRK: {brk*100:.0f}%", (400, 75), self.font, 0.6, (50, 50, 50), 1)
+        
+        # Visual Steering Wheel Icon (Simplified)
+        center_x, center_y = 600, 40
+        cv2.circle(vis_frame, (center_x, center_y), 25, (100, 100, 100), 2)
+        end_x = int(center_x + 25 * np.sin(steer))
+        end_y = int(center_y - 25 * np.cos(steer))
+        cv2.line(vis_frame, (center_x, center_y), (end_x, end_y), (0, 0, 255), 3)
+        
+        # Performance Box
+        cv2.rectangle(vis_frame, (w-250, 10), (w-10, 140), (240, 240, 240), -1)
+        cv2.putText(vis_frame, "SYSTEM METRICS", (w-240, 35), self.font, 0.6, (0, 0, 0), 2)
+        cv2.putText(vis_frame, f"Latency: {decision.get('latency', 0)*1000:.1f}ms", (w-240, 65), self.font, 0.5, (100, 100, 100), 1)
+        cv2.putText(vis_frame, f"Uncertainty: {decision.get('uncertainty', 0)*100:.1f}%", (w-240, 95), self.font, 0.5, (100, 100, 100), 1)
+        
+        # 5. XAI Heatmap Blending (Task 10)
+        if heatmap is not None:
+            heatmap_color = cv2.applyColorMap((heatmap * 255).astype(np.uint8), cv2.COLORMAP_JET)
+            # Re-scale to 1/4 size and place in corner
+            xai_viz = cv2.resize(heatmap_color, (200, 120))
+            vis_frame[h-140:h-20, w-220:w-20] = cv2.addWeighted(vis_frame[h-140:h-20, w-220:w-20], 0.3, xai_viz, 0.7, 0)
+            cv2.putText(vis_frame, "NEURAL FOCUS (XAI)", (w-220, h-145), self.font, 0.5, (255, 255, 255), 1)
         
         return vis_frame
